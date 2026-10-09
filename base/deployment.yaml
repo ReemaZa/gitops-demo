@@ -5,12 +5,12 @@ metadata:
   labels:
     app: demo-app
 spec:
-  replicas: 2
+  replicas: 2 #Nombre de pods souhaité
   progressDeadlineSeconds: 60   # passe en Degraded après 60s si le déploiement échoue (utile pour la démo 3)
   selector:
     matchLabels:
       app: demo-app
-  template:
+  template:   # Modèle des pods créés (labels, conteneurs)
     metadata:
       labels:
         app: demo-app
@@ -20,14 +20,14 @@ spec:
           image: nginx:1.25
           ports:
             - containerPort: 80
-          volumeMounts:
+          volumeMounts: 
             - name: html
               mountPath: /usr/share/nginx/html
-          readinessProbe:
+          readinessProbe:  # le pod ne reçoit du trafic que si / répond
             httpGet:
               path: /
               port: 80
-      volumes:
+      volumes: # Monte le ConfigMap demo-html dans le dossier servi par nginx
         - name: html
           configMap:
             name: demo-html

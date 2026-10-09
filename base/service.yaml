@@ -1,9 +1,10 @@
+#Rôle : expose les pods portant le label app: demo-app derrière une adresse stable. 
 apiVersion: v1
 kind: Service
 metadata:
   name: demo-app
 spec:
-  type: ClusterIP
+  type: ClusterIP  #ClusterIP = accessible uniquement depuis l'intérieur du cluster.
   selector:
     app: demo-app
   ports:
