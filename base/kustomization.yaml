@@ -1,0 +1,10 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - deployment.yaml
+  - service.yaml
+#Un ConfigMap stocke de la configuration (texte, fichiers) séparée de l’image Docker.
+configMapGenerator:
+  - name: demo-html
+    files:
+      - index.html
