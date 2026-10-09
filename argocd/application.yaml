@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: demo-app
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/ReemaZa/gitops-demo.git
+    targetRevision: HEAD
+    path: overlays/dev # Dossier Kustomize à déployer (ArgoCD détecte kustomization.yaml tout seul)
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: demo
+  syncPolicy:
+    automated:
+      prune: true       # supprime du cluster ce qui a été supprimé de Git
+      selfHeal: true    # annule les modifications manuelles faites sur le cluster
+    syncOptions:
+      - CreateNamespace=true   # crée le namespace "demo" automatiquement
